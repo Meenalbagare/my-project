@@ -104,6 +104,13 @@ public class ProjectInstructionsGenerator {
             System.out.println("No import declarations found in the Java file.");
         }
 
+        //dependencies from pom.xml file
+        String pomXmlPath = codeFile.getParent()+File.separator+"pom.xml";
+        if(new File(pomXmlPath).exists()) {
+            Set<String> retrieveDependencies = DependencyResolver.retrieveDependenciesFromPomXml(pomXmlPath);
+        }
+
+
     } else {
         System.err.println("Error parsing Java file: " + parseResult.getProblems());
     }
@@ -139,6 +146,7 @@ public void visit(ImportDeclaration n, Void arg) {
     }
 }
 
+    
 
     private static void analyzePythonFile(File codeFile) throws IOException {
         // Read the Python code from the file
